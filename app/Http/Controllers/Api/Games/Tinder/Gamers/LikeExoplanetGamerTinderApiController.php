@@ -5,18 +5,18 @@
  * @author    Yehor Herasymchuk <yehor@dotsplatform.com>
  */
 
-namespace App\Http\Controllers\Api\Games\Tinder\Planets;
+namespace App\Http\Controllers\Api\Games\Tinder\Gamers;
 
 
 use App\Http\Controllers\Api\Games\Tinder\TinderApiController;
-use App\Models\Gamer;
 use App\Models\Exoplanet;
+use App\Models\Gamer;
 use Illuminate\Http\JsonResponse;
 
-class LikeExoplanetTinderApiController extends TinderApiController
+class LikeExoplanetGamerTinderApiController extends TinderApiController
 {
 
-    public function __invoke(Exoplanet $exoplanet, Gamer $gamer): JsonResponse
+    public function __invoke(Gamer $gamer, Exoplanet $exoplanet): JsonResponse
     {
         $gamer->likeExoplanet($exoplanet);
 

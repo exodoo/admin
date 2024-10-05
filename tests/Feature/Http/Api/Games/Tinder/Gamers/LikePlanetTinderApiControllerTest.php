@@ -5,7 +5,7 @@
  * @author    Yehor Herasymchuk <yehor@dotsplatform.com>
  */
 
-namespace Tests\Feature\Http\Api\Games\Tinder\Exoplanets;
+namespace Tests\Feature\Http\Api\Games\Tinder\Gamers;
 
 
 use App\Models\Exoplanet;
@@ -22,7 +22,7 @@ class LikePlanetTinderApiControllerTest extends HttpTestCase
         /** @var Gamer $gamer */
         $gamer = Gamer::factory()->create();
 
-        $this->postJson(route('api.games.tinder.exoplanets.like', [
+        $this->postJson(route('api.games.tinder.gamers.exoplanets.like', [
             'exoplanet' => $exoplanet1->id,
             'gamer' => $gamer->id
         ]))->assertOk();
