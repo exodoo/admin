@@ -8,7 +8,7 @@
 namespace App\Http\Controllers\Api\Stars;
 
 
-use App\Models\Planet;
+use App\Models\Exoplanet;
 use App\Models\Star;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

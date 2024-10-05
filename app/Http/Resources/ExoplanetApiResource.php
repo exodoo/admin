@@ -8,10 +8,14 @@
 namespace App\Http\Resources;
 
 
+use App\Models\Exoplanet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PlanetResource extends JsonResource
+/**
+ * @mixin  Exoplanet
+ */
+class ExoplanetApiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,16 +24,10 @@ class PlanetResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'params' => [
-
-            ],
-        ];
+        $data = parent::toArray($request);
+        $data['star'] = $this->star->toArray();
+        $data['publications'] = $this->publications->all();
+        return $data;
     }
 
 }

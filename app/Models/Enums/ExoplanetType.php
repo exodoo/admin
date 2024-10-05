@@ -7,7 +7,7 @@
 
 namespace App\Models\Enums;
 
-enum PlanetType: string
+enum ExoplanetType: string
 {
 
     case GAS_GIANT = 'Gas Giant';

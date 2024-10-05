@@ -3,13 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Enums\UserLevel;
-use App\Models\Planet;
+use App\Models\Exoplanet;
+use App\Models\Gamer;
+use App\Models\Publication;
 use App\Models\Star;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,10 +22,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->createAdmin();
-        DB::table('planets')->truncate();
+        DB::table('exoplanets')->truncate();
         DB::table('stars')->truncate();
-        Planet::factory(1000)->create();
-        Star::factory(10)->create();
+        DB::table('publications')->truncate();
+        Star::factory(3)->create()->each(function (Star $star) {
+            Exoplanet::factory(100)->create([
+                'star_id' => $star->id,
+            ])->each(function (Exoplanet $exoplanet) {
+                Publication::factory(3)->create([
+                    'exoplanet_id' => $exoplanet->id,
+                ]);
+            });
+        });
+//        DB::table('gamers')->truncate();
+        Gamer::factory(100)->create();
     }
 
     private function createAdmin(): void
