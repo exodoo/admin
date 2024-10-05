@@ -46,11 +46,17 @@ class ExoplanetFactory extends Factory
         ];
     }
 
-    public function withStar(): self
+    public function withStar(Star|int|null $star = null): self
     {
-        return $this->state(function (array $attributes) {
+        if ($star instanceof Star) {
+            $star = $star->id;
+        }
+        if (! $star) {
+            $star = Star::factory()->create()->id;
+        }
+        return $this->state(function () use ($star) {
             return [
-                'star_id' => Star::factory()->create()->id,
+                'star_id' => $star,
             ];
         });
     }

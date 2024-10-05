@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Enums\ExoplanetType;
+use App\Models\Enums\StarType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,6 +32,10 @@ class Star extends Model
         'radius',
         'temperature',
         'age',
+    ];
+
+    protected $casts = [
+        'type' => StarType::class,
     ];
 
     public function exoplanets(): HasMany

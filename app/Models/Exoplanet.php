@@ -44,6 +44,7 @@ class Exoplanet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'star_id',
         'name',
         'type',
         'description',

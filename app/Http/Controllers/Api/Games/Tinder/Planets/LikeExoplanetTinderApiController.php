@@ -16,9 +16,9 @@ use Illuminate\Http\JsonResponse;
 class LikeExoplanetTinderApiController extends TinderApiController
 {
 
-    public function __invoke(Exoplanet $planet, Gamer $gamer): JsonResponse
+    public function __invoke(Exoplanet $exoplanet, Gamer $gamer): JsonResponse
     {
-        $gamer->likePlanet($planet);
+        $gamer->likeExoplanet($exoplanet);
 
         return $this->responseOk();
     }
