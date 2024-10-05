@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('gamer_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignId('planet_id')
+            $table->foreignId('exoplanet_id')
                 ->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
