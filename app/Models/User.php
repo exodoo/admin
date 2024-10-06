@@ -60,6 +60,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->getLevel()->isTeacherOrGreater();
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->getLevel()->isAdmin();
+    }
+
     public function getLevel(): UserLevel
     {
         return UserLevel::from($this->level);

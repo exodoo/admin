@@ -42,6 +42,11 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = auth()->user();
+        $actions = [];
+        if ($user->isAdmin()) {
+            $actions[] = Tables\Actions\EditAction::make();
+        }
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
@@ -66,14 +71,7 @@ class UserResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->actions($actions);
     }
 
     public static function getRelations(): array

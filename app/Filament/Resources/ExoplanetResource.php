@@ -69,17 +69,22 @@ class ExoplanetResource extends Resource
                     ->default(0),
                 Forms\Components\TextInput::make('discovered_method'),
                 Forms\Components\TextInput::make('exoplanet_type'),
-                Forms\Components\TextInput::make('planet_texture'),
-                Forms\Components\TextInput::make('surface_photos'),
-                Forms\Components\TextInput::make('locals_portrait'),
-                Forms\Components\TextInput::make('flora_photos'),
-                Forms\Components\TextInput::make('camp_photo'),
-                Forms\Components\TextInput::make('background'),
+                Forms\Components\FileUpload::make('planet_texture'),
+                Forms\Components\FileUpload::make('surface_photos'),
+                Forms\Components\FileUpload::make('locals_portrait'),
+                Forms\Components\FileUpload::make('flora_photos'),
+                Forms\Components\FileUpload::make('camp_photo'),
+                Forms\Components\FileUpload::make('background'),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $user = auth()->user();
+        $actions = [];
+        if ($user->isAdmin()) {
+            $actions[] = Tables\Actions\EditAction::make();
+        }
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('star.name')
@@ -151,14 +156,7 @@ class ExoplanetResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->actions($actions);
     }
 
     public static function getRelations(): array
