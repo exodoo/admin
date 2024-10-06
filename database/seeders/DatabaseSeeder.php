@@ -21,21 +21,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->createAdmins();
+//        DB::table('exoplanets')->truncate();
+//        DB::table('stars')->truncate();
+//        DB::table('publications')->truncate();
+//        Star::factory(3)->create()->each(function (Star $star) {
+//            Exoplanet::factory(100)->create([
+//                'star_id' => $star->id,
+//            ])->each(function (Exoplanet $exoplanet) {
+//                Publication::factory(3)->create([
+//                    'exoplanet_id' => $exoplanet->id,
+//                ]);
+//            });
+//        });
+////        DB::table('gamers')->truncate();
+//        Gamer::factory(100)->create();
+    }
+
+    private function createAdmins(): void
+    {
         $this->createAdmin();
-        DB::table('exoplanets')->truncate();
-        DB::table('stars')->truncate();
-        DB::table('publications')->truncate();
-        Star::factory(3)->create()->each(function (Star $star) {
-            Exoplanet::factory(100)->create([
-                'star_id' => $star->id,
-            ])->each(function (Exoplanet $exoplanet) {
-                Publication::factory(3)->create([
-                    'exoplanet_id' => $exoplanet->id,
-                ]);
-            });
-        });
-//        DB::table('gamers')->truncate();
-        Gamer::factory(100)->create();
+        $this->createTeacher();
     }
 
     private function createAdmin(): void
@@ -49,6 +55,20 @@ class DatabaseSeeder extends Seeder
             'email' => 'yehor@exodoo.space',
             'password' => Hash::make('yehor@exodoo.space'),
             'level' => UserLevel::ADMIN,
+        ]);
+    }
+
+    private function createTeacher(): void
+    {
+        if (User::where('email', 'demo@exodoo.space')->exists()) {
+            return;
+        }
+
+        User::factory()->create([
+            'name' => 'Demo Nasa',
+            'email' => 'demo@exodoo.space',
+            'password' => Hash::make('demo@exodoo.space'),
+            'level' => UserLevel::TEACHER,
         ]);
     }
 }
