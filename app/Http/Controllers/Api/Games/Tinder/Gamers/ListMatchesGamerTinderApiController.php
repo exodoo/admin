@@ -36,8 +36,24 @@ class ListMatchesGamerTinderApiController extends TinderApiController
             ->orderByDesc('shared_exoplanets')
             ->get();
 
+        $gamerIds = $matches->pluck('gamer_id')->toArray();
+        $gamers = Gamer::whereIn('id', $gamerIds)->get();
+
+        $result = [];
+        foreach ($matches as $match) {
+            $foundGamer = $gamers->firstWhere('id', $match->gamer_id);
+            if (!$foundGamer) {
+                continue;
+            }
+            $result[] = [
+                'gamer_id' => $match->gamer_id,
+                'gamer' => $foundGamer->toArray(),
+                'shared_exoplanets' => $match->shared_exoplanets,
+            ];
+        }
+
         return response()->json([
-            'matches' => $matches,
+            'matches' => $result,
         ]);
     }
 

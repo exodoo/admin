@@ -53,6 +53,14 @@ class ListMatchesGamerTinderApiControllerTest extends HttpTestCase
                 'matches' => [
                     '*' => [
                         'gamer_id',
+                        'gamer' => [
+                            'id',
+                            'name',
+                            'username',
+                            'email',
+                            'created_at',
+                            'updated_at',
+                        ],
                         'shared_exoplanets',
                     ],
                 ],
@@ -127,6 +135,9 @@ class ListMatchesGamerTinderApiControllerTest extends HttpTestCase
         $matches = $response->json('matches');
         $this->assertCount(4, $matches);
         $this->assertEquals($gamer2->id, $matches[0]['gamer_id']);
+        $this->assertEquals($gamer2->name, $matches[0]['gamer']['name']);
+        $this->assertEquals($gamer2->username, $matches[0]['gamer']['username']);
+        $this->assertEquals($gamer2->email, $matches[0]['gamer']['email']);
         $this->assertEquals(5, $matches[0]['shared_exoplanets']);
 
         $this->assertEquals($gamer5->id, $matches[1]['gamer_id']);
