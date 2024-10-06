@@ -69,12 +69,12 @@ class ExoplanetResource extends Resource
                     ->default(0),
                 Forms\Components\TextInput::make('discovered_method'),
                 Forms\Components\TextInput::make('exoplanet_type'),
-                Forms\Components\FileUpload::make('planet_texture'),
-                Forms\Components\FileUpload::make('surface_photos'),
-                Forms\Components\FileUpload::make('locals_portrait'),
-                Forms\Components\FileUpload::make('flora_photos'),
-                Forms\Components\FileUpload::make('camp_photo'),
-                Forms\Components\FileUpload::make('background'),
+                Forms\Components\TextInput::make('planet_texture'),
+                Forms\Components\TextInput::make('surface_photos'),
+                Forms\Components\TextInput::make('locals_portrait'),
+                Forms\Components\TextInput::make('flora_photos'),
+                Forms\Components\TextInput::make('camp_photo'),
+                Forms\Components\TextInput::make('background'),
             ]);
     }
 
